@@ -1,0 +1,30 @@
+{
+  "schema": [
+    {
+      "name": "user_id",
+      "type": "STRING"
+    },
+    {
+      "name": "email",
+      "type": "STRING"
+    }
+  ],
+  "external_data_configuration": {
+    "autodetect": true,
+    "source_format": "CSV",
+    "source_uris": [
+      "gs://my-bucket/users/*.csv"
+    ],
+    "ignore_unknown_values": true,
+    "csv_options": {
+      "quote": "\"",
+      "field_delimiter": ",",
+      "skip_leading_rows": 1
+    }
+  },
+  "table_iam_roles": {
+    "roles/bigquery.dataViewer": [
+      "group:external-auditors@example.com"
+    ]
+  }
+}

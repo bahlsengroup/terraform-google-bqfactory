@@ -1,0 +1,5 @@
+{
+  "description": "Example dataset for basic demonstration",
+  "location": "EU",
+  "delete_contents_on_destroy": false
+}

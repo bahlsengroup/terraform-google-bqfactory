@@ -1,0 +1,7 @@
+{
+  "table_iam_roles": {
+    "roles/bigquery.dataViewer": [
+      "user:analyst@example.com"
+    ]
+  }
+}

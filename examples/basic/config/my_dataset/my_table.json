@@ -1,0 +1,28 @@
+{
+  "schema": [
+    {
+      "name": "id",
+      "type": "STRING",
+      "mode": "REQUIRED",
+      "description": "Unique identifier"
+    },
+    {
+      "name": "name",
+      "type": "STRING",
+      "mode": "NULLABLE",
+      "description": "Name of the entity"
+    },
+    {
+      "name": "created_at",
+      "type": "TIMESTAMP",
+      "mode": "REQUIRED",
+      "description": "Creation timestamp"
+    }
+  ],
+  "require_partition_filter": true,
+  "time_partitioning": {
+    "type": "DAY",
+    "field": "created_at",
+    "expiration_ms": 7776000000
+  }
+}
