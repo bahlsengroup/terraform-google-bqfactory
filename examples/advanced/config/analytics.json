@@ -1,0 +1,15 @@
+{
+  "description": "Analytics dataset with custom access controls",
+  "location": "US",
+  "delete_contents_on_destroy": true,
+  "access": [
+    {
+      "role": "roles/bigquery.dataViewer",
+      "group_by_email": "analytics-viewers@example.com"
+    },
+    {
+      "role": "roles/bigquery.dataEditor",
+      "user_by_email": "data-steward@example.com"
+    }
+  ]
+}
