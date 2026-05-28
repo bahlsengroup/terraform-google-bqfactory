@@ -74,9 +74,11 @@ resource "google_bigquery_dataset" "this" {
   dynamic "access" {
     for_each = lookup(each.value, "access", [])
     content {
-      user_by_email  = lookup(access.value, "user_by_email", null)
-      group_by_email = lookup(access.value, "group_by_email", null)
-      role           = access.value.role
+      user_by_email = lookup(access.value, "user_by_email", null) != null ? replace(
+      lookup(access.value, "user_by_email", null), "{ENV}", var.env) : null
+      group_by_email = lookup(access.value, "group_by_email", null) != null ? replace(
+      lookup(access.value, "group_by_email", null), "{ENV}", var.env) : null
+      role = access.value.role
     }
   }
 }

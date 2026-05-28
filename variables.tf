@@ -19,7 +19,18 @@ variable "project_id" {
 
   validation {
     condition     = can(regex("^[a-z][a-z0-9-]{4,28}[a-z0-9]", var.project_id))
-    error_message = "Invlaid project_id! It must be 6 to 30 lowercase letters, digits, or hyphens. It must start with a letter. Trailing hyphens are prohibited."
+    error_message = "Invalid project_id! It must be 6 to 30 lowercase letters, digits, or hyphens. It must start with a letter. Trailing hyphens are prohibited."
+  }
+}
+
+variable "env" {
+  description = "The current env of the project where BigQuery resources will be created."
+  type        = string
+  nullable    = false
+
+  validation {
+    condition     = can(regex("^[a-z]{3,10}", var.env))
+    error_message = "Invalid env! It must be 3 to 10 lowercase letters."
   }
 }
 
@@ -29,6 +40,6 @@ variable "config_path" {
 
   validation {
     condition     = length(var.config_path) > 0 && !can(regex("/$", var.config_path))
-    error_message = "The config_path must not be empty and must not end with a trailing slash."
+    error_message = "Invalid config_path! The config_path must not be empty and must not end with a trailing slash."
   }
 }
