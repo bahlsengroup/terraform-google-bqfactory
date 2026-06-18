@@ -22,6 +22,6 @@ terraform {
   required_version = ">= 1.12"
 
   provider_meta "google" {
-    module_name = "bahlsen/bqfactory/v0.2.0"
+    module_name = "bahlsen/bqfactory/v0.3.0"
   }
 }

@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.0](https://github.com/bahlsengroup/terraform-google-bqfactory/compare/v0.2.0...v0.3.0) (2026-06-18)
+
+
+### Features
+
+* support hive-partitioned external tables ([#7](https://github.com/bahlsengroup/terraform-google-bqfactory/issues/7)) ([f486458](https://github.com/bahlsengroup/terraform-google-bqfactory/commit/f486458898d0c01bcd024747400529d84f1bec37))
+
 ## [0.2.0](https://github.com/bahlsengroup/terraform-google-bqfactory/compare/v0.1.0...v0.2.0) (2026-06-01)
 
 
