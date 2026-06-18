@@ -85,12 +85,13 @@ resource "google_bigquery_dataset" "this" {
 
 # Resource to manage BigQuery tables that have a schema defined.
 resource "google_bigquery_table" "this" {
-  for_each                 = local.bigquery_tables_managed
-  project                  = var.project_id
-  dataset_id               = each.value.dataset_id
-  table_id                 = each.value.table_id
-  schema                   = jsonencode(each.value.schema)
-  require_partition_filter = lookup(each.value, "require_partition_filter", null)
+  for_each                     = local.bigquery_tables_managed
+  project                      = var.project_id
+  dataset_id                   = each.value.dataset_id
+  table_id                     = each.value.table_id
+  schema                       = jsonencode(each.value.schema)
+  require_partition_filter     = lookup(each.value, "require_partition_filter", null)
+  ignore_auto_generated_schema = lookup(each.value, "ignore_auto_generated_schema", null)
 
   # Configure time-based partitioning if defined in the table JSON.
   dynamic "time_partitioning" {
@@ -107,11 +108,22 @@ resource "google_bigquery_table" "this" {
   dynamic "external_data_configuration" {
     for_each = lookup(each.value, "external_data_configuration", null) != null ? [each.value.external_data_configuration] : []
     content {
-      autodetect            = lookup(external_data_configuration.value, "autodetect", null)
-      source_format         = lookup(external_data_configuration.value, "source_format", null)
-      source_uris           = lookup(external_data_configuration.value, "source_uris", null)
+      autodetect    = lookup(external_data_configuration.value, "autodetect", null)
+      source_format = lookup(external_data_configuration.value, "source_format", null)
+      source_uris = lookup(external_data_configuration.value, "source_uris", null) != null ? [
+        for uri in external_data_configuration.value.source_uris : replace(uri, "{ENV}", var.env)
+      ] : null
       ignore_unknown_values = lookup(external_data_configuration.value, "ignore_unknown_values", null)
       max_bad_records       = lookup(external_data_configuration.value, "max_bad_records", null)
+
+      dynamic "hive_partitioning_options" {
+        for_each = lookup(external_data_configuration.value, "hive_partitioning_options", null) != null ? [external_data_configuration.value.hive_partitioning_options] : []
+        content {
+          mode                     = lookup(hive_partitioning_options.value, "mode", null)
+          require_partition_filter = lookup(hive_partitioning_options.value, "require_partition_filter", null)
+          source_uri_prefix        = lookup(hive_partitioning_options.value, "source_uri_prefix", null) != null ? replace(lookup(hive_partitioning_options.value, "source_uri_prefix", null), "{ENV}", var.env) : null
+        }
+      }
 
       dynamic "csv_options" {
         for_each = lookup(external_data_configuration.value, "csv_options", null) != null ? [external_data_configuration.value.csv_options] : []
