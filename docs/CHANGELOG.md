@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.3.1](https://github.com/bahlsengroup/terraform-google-bqfactory/compare/v0.3.0...v0.3.1) (2026-06-23)
+
+
+### Bug Fixes
+
+* allow shorter and longer env namings ([03b7558](https://github.com/bahlsengroup/terraform-google-bqfactory/commit/03b7558df9c07c114bdb9541d4b5050f5c5ad6d4))
+* bump actions/checkout from 6 to 7 ([5d08209](https://github.com/bahlsengroup/terraform-google-bqfactory/commit/5d08209731a3c312a84cd97f5b15796c2360ebce))
+
 ## [0.3.0](https://github.com/bahlsengroup/terraform-google-bqfactory/compare/v0.2.0...v0.3.0) (2026-06-18)
 
 
