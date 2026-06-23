@@ -29,8 +29,8 @@ variable "env" {
   nullable    = false
 
   validation {
-    condition     = can(regex("^[a-z]{3,10}", var.env))
-    error_message = "Invalid env! It must be 3 to 10 lowercase letters."
+    condition     = can(regex("^[a-z]{2,15}", var.env))
+    error_message = "Invalid env! It must be 2 to 15 lowercase letters."
   }
 }
 
